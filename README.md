@@ -18,11 +18,11 @@ xmlParser.toJs('/path/to/file.xml', (xmlAsObject) =>{
 ## XML Object structure
 ```javascript
 {
-    name: '', 
+    name: '', //will be == '#text' if this node represent pure text
     attributes:[], 
     nodes:[], 
     parentNode: xmlObj, 
-    value:'', 
+    value:'', //it only contains something if this node is a #text node
     selfclosing: false
 };
 ```
