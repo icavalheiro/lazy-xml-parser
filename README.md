@@ -1,5 +1,9 @@
 # lazy-xml-parser
 A lazily made XML parser for NodeJS.
+Lazy, but fast, really fucking awesome fast.
+
+Ps.: also great at memory usage, using really low memory
+Ps2.: lazy means that I did not took the time to make it report errors, but it work perfectly with XML files that are not broken
 
 ## Example
 ```javascript
@@ -39,7 +43,7 @@ xmlParser.toJs('/path/to/file.xml', (xmlAsObject) =>{
 
 #### toJs (pathToXml, callback[xmlObj])
 Creates a XML Object from a file, I made it that way to be more memory efficient than loading it from a string.
-And I'm lazy, not doing it work with string, fuck yah.
+And I'm not doing this work with strings, fuck yah.
 
 #### toXml (pathToSaveXml, xmlObj)
 Saves the xmlObj as a xml. Dãã!
