@@ -1,0 +1,30 @@
+{
+  "name": "lazy-xml-parser",
+  "version": "1.0.0",
+  "description": "A lazily made XML parser for NodeJS. Lazy, but fast, really fucking awesome fast.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/icavalheiro/lazy-xml-parser.git"
+  },
+  "keywords": [
+    "xml",
+    "parser",
+    "fast",
+    "memory",
+    "efficient",
+    "small",
+    "tiny",
+    "sdlxliff",
+    "xliff"
+  ],
+  "author": "Ivan S. Cavalheiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/icavalheiro/lazy-xml-parser/issues"
+  },
+  "homepage": "https://github.com/icavalheiro/lazy-xml-parser#readme"
+}
