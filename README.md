@@ -3,6 +3,9 @@ A lazily made XML parser for NodeJS.
 Lazy, but fast, really fucking awesome fast.
 
 
+IMPORTANT: The reason why I made this XML parser is becouse all of the current XML parsers in NPM fucks up the xml somehow, since I work for the translation industry it is really important that the XML structure, tag ordering and code identation are not changed. So this XML parser respect the original XML file (reading and saving the same file will result in identical matches).
+
+
 Ps.: also great at memory usage, using really low memory
 
 Ps2.: lazy means that I did not take the time to make it report errors properly, but it work perfectly with XML files that are not broken
