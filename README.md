@@ -5,7 +5,7 @@ Lazy, but fast, really fucking awesome fast.
 
 Ps.: also great at memory usage, using really low memory
 
-Ps2.: lazy means that I did not took the time to make it report errors, but it work perfectly with XML files that are not broken
+Ps2.: lazy means that I did not take the time to make it report errors properly, but it work perfectly with XML files that are not broken
 
 ## Example
 ```javascript
