@@ -1,6 +1,5 @@
 const fs = require('fs');
 
-
 //create a readable strem for us
 function getReadStream(path){
     var stream = fs.createReadStream(path, {flags: 'r'});
@@ -14,13 +13,30 @@ function getWriteStream(path){
     return stream;
 }
 
+//node handling
+function getNewNode(p_name, p_parent){
+    var node = {name: p_name, attributes:[], nodes:[], parentNode:null, value:'', selfclosing: false};
+    //we have to define the parent node as non enumerable
+    //otherwise the xml object wont be able to be converted to json
+    //becouse it has circular reference
+    Object.defineProperty(node, 'parentNode', {enumerable: false});
+    node.parentNode = p_parent;
+    return node;
+}
+
+//attribute handling
+function getNewAttribute(p_name){
+    return {name: p_name, value: null}
+}
+
 //save the obj that we've generated into a xml file
 function saveXml(stream, obj){
     function writeTag(tag){
         if(tag.name == '#text'){
             stream.write(tag.value);
         }else{
-            var toWrite = '<' + tag.name;
+            var toWrite = '';
+            toWrite += '<' + tag.name;
             for(var i = 0; i < tag.attributes.length; i++){
                 toWrite += ' '+tag.attributes[i].name + '="' + tag.attributes[i].value + '"';
             }
@@ -30,6 +46,7 @@ function saveXml(stream, obj){
             }else{
                 toWrite += '>';
                 stream.write(toWrite);
+                
                 for(var i = 0; i < tag.nodes.length; i++){
                     writeTag(tag.nodes[i]);
                 }
@@ -51,22 +68,14 @@ function saveXml(stream, obj){
 //load a xml file into a js object
 function getObject(stream, callback){
     var obj = [];
-    
-    function getNewNode(p_name, p_parent){
-        return {name: p_name, attributes:[], nodes:[], parentNode:p_parent, value:'', selfclosing: false};
-    }
-    
-    function getNewAttribute(p_name){
-        return {name: p_name, value: null}
-    }
-    
-    
+
     var currentNode = getNewNode('document', null);
     
     obj.push(currentNode);
     
     var currentValue = '';
     
+    //flags
     var readingValue = false;
     var readingString = false;
     var readingTagName = false;
@@ -79,8 +88,9 @@ function getObject(stream, callback){
     var lastCharacterWasLT = false;
     var readingClosingTag = false;
     
+    //main function
     function processCharacter(character){
-        if(readingClosingTag){
+        if(readingClosingTag){//set when we've read '</', so we wait until '>'
             if(character == '>'){
                 readingClosingTag = false;
                 if(currentNode.parentNode != null)
@@ -90,6 +100,7 @@ function getObject(stream, callback){
         }
         
         
+        //set when we detect a self closing tag
         if(ignoreNextGT){
             ignoreNextGT = false;
             if(character == '>'){
@@ -115,6 +126,7 @@ function getObject(stream, callback){
             return;
         }        
         
+        //read the tag's name
         if(readingTagName){
             if(character == "?"){
                 readingClosingTag = true;
@@ -255,6 +267,10 @@ function getObject(stream, callback){
     delete stream;
 }
 
+
+module.exports.getNewNode = getNewNode;
+module.exports.getNewAttribute = getNewAttribute;
+
 module.exports.toJs = function(pathToXml, callback){
     var stream = getReadStream(pathToXml);
     getObject(stream, (obj)=>{
@@ -265,16 +281,4 @@ module.exports.toJs = function(pathToXml, callback){
 module.exports.toXml = function(pathToSaveXml, xmlObject){
     var stream = getWriteStream(pathToSaveXml);
     saveXml(stream, xmlObject);
-}
-
-/*
-var stream = getReadStream('P:\\Engenharia\\Tests\\lockTranslated\\UnknownSegments en-US_pt-BR.sdlxliff');
-getObject(stream, (obj) => {
-    
-    console.log(obj == undefined);
-    console.dir(obj.nodes);
-    saveXml(getWriteStream('P:\\Engenharia\\Tests\\lockTranslated\\debug.xml'), obj);
-    
-    console.log('done');
-});*/
-
+};
