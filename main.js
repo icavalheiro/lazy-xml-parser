@@ -21,6 +21,44 @@ function getNewNode(p_name, p_parent){
     //becouse it has circular reference
     Object.defineProperty(node, 'parentNode', {enumerable: false});
     node.parentNode = p_parent;
+    
+    //add the methods to this node
+    node.getAttribute = function(attributeName){
+        for(var i = 0; i < node.attributes.length; i++){
+            if(node.attributes[i].name == attributeName){
+                return node.attributes[i];
+            }
+        }
+        
+        return null;
+    }
+    
+    node.getAttributeValue = function(attributeName){
+        var attribute = node.getAttribute(attributeName);
+        if(attribute != null){
+            return attribute.value;
+        }
+        
+        return '';
+    }
+    
+    node.getChieldByName = function(childName){
+        for(var i = 0; i < node.nodes.length; i++){
+            if(node.nodes[i].name == childName)
+                return node.nodes[i];
+        }
+    }
+    
+    node.getChieldsByName = function(childName){
+        var toReturn = [];
+        for(var i = 0; i < node.nodes.length; i++){
+            if(node.nodes[i].name == childName)
+                toReturn.push(node.nodes[i]);
+        }
+        
+        return toReturn;
+    }
+    
     return node;
 }
 

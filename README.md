@@ -56,6 +56,7 @@ Saves the xmlObj as a xml. Dãã!
 ## Latest patch notes
 - Fixed issue where the convertion of the XML Object to JSON would return an error about circular structure
 - Added methods "getNewNode" and "getNewAttribute" to the exports, so that they can be used to add new elements to the XML Object
+- Added methods to node: getAttribute, getAttributeValue, getChieldByName, getChieldsByName
 
 ## License
 Copyright (c) 2016 Ivan S. Cavalheiro

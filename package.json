@@ -1,6 +1,6 @@
 {
   "name": "lazy-xml-parser",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A lazily made XML parser for NodeJS. Lazy, but fast, really fucking awesome fast.",
   "main": "main.js",
   "scripts": {
