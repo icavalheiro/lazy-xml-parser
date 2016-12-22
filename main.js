@@ -42,14 +42,14 @@ function getNewNode(p_name, p_parent){
         return '';
     }
     
-    node.getChieldByName = function(childName){
+    node.getChildByName = function(childName){
         for(var i = 0; i < node.nodes.length; i++){
             if(node.nodes[i].name == childName)
                 return node.nodes[i];
         }
     }
     
-    node.getChieldsByName = function(childName){
+    node.getChildsByName = function(childName){
         var toReturn = [];
         for(var i = 0; i < node.nodes.length; i++){
             if(node.nodes[i].name == childName)
