@@ -166,7 +166,7 @@ function getObject(stream, callback){
         
         //read the tag's name
         if(readingTagName){
-            if(character == "?"){
+            if(character == "?" || character == "!"){
                 readingClosingTag = true;
                 return;
             }
